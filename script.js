@@ -96,44 +96,43 @@ function playRound(computerChoice, humanChoice) {
 
 
 
-function checkRounds (rounds) {
+function checkRounds (humScore, compScore) {
 
-    if (rounds == 5) {
-        const buttonContainer = document.querySelector(".button-container");
-        const restartButton = document.createElement("button");
-        restartButton.textContent = "Restart";
+    const buttonContainer = document.querySelector(".button-container");
+    const restartButton = document.createElement("button");
+    restartButton.textContent = "Restart";
 
-        const outcome = document.querySelector(".outcome");
-        const outcomeText = document.createElement("h2");
-        outcomeText.style.color = "red";
-        outcome.appendChild(outcomeText);
+    const outcome = document.querySelector(".outcome");
+    const outcomeText = document.createElement("h2");
+    outcomeText.style.color = "red";
+    outcome.appendChild(outcomeText);
 
+    restartButton.addEventListener("click", () => {
+        currentRoundDisplay.textContent = "Current Round is: " + currentRound;
+        humanScoreDisplay.textContent = "Human Score is: " + humanScore;
+        computerScoreDisplay.textContent = "Computer Score is: " + computerScore;
+        body.appendChild(buttonContainer);
+        body.removeChild(restartButton);
+        outcome.removeChild(outcomeText);
+    });
+    
+    
+    if (humScore == 5) {
         body.removeChild(buttonContainer);
         body.appendChild(restartButton);
-
-        if (humanScore > computerScore) {
-            outcomeText.textContent = "YOU WIN";
-        }
-        else if (humanScore < computerScore) {
-            outcomeText.textContent = "THE COMPUTER WINS";
-        }
-        else {
-            outcomeText.textContent = "YOU DRAW WITH THE COMPUTER";
-        }
-
-        restartButton.addEventListener("click", () => {
-            currentRound = 0;
-            humanScore = 0;
-            computerScore = 0;
-            currentRoundDisplay.textContent = "Current Round is: " + currentRound;
-            humanScoreDisplay.textContent = "Human Score is: " + humanScore;
-            computerScoreDisplay.textContent = "Computer Score is: " + computerScore;
-            body.appendChild(buttonContainer);
-            body.removeChild(restartButton);
-            outcome.removeChild(outcomeText);
-        });
+        outcomeText.textContent = "YOU WIN";
+        currentRound = 0;
+        humanScore = 0;
+        computerScore = 0;
     }
-
+    else if (compScore == 5) {
+        body.removeChild(buttonContainer);
+        body.appendChild(restartButton);
+        outcomeText.textContent = "THE COMPUTER WINS";
+        currentRound = 0;
+        humanScore = 0;
+        computerScore = 0;
+    }
 }
 
 
@@ -165,7 +164,7 @@ rockButton.addEventListener("click", () => {
     currentRoundDisplay.textContent = "Current Round is: " + currentRound;
     humanScoreDisplay.textContent = "Human Score is: " + humanScore;
     computerScoreDisplay.textContent = "Computer Score is: " + computerScore;
-    checkRounds(currentRound);
+    checkRounds(humanScore, computerScore);
     
 });
 
@@ -180,7 +179,7 @@ paperButton.addEventListener("click", () => {
     currentRoundDisplay.textContent = "Current Round is: " + currentRound;
     humanScoreDisplay.textContent = "Human Score is: " + humanScore;
     computerScoreDisplay.textContent = "Computer Score is: " + computerScore;
-    checkRounds(currentRound);
+    checkRounds(humanScore, computerScore);
 });
 
 
@@ -194,7 +193,7 @@ scissorsButton.addEventListener("click", () => {
     currentRoundDisplay.textContent = "Current Round is: " + currentRound;
     humanScoreDisplay.textContent = "Human Score is: " + humanScore;
     computerScoreDisplay.textContent = "Computer Score is: " + computerScore;
-    checkRounds(currentRound);
+    checkRounds(humanScore, computerScore);
 });
 
 
